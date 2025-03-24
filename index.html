@@ -7,6 +7,8 @@
     <title>Convertir SVG a PNG</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas/2.8.0/canvas.min.js"></script> <!-- Librería canvas -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <link rel="icon" href="convertir.png" type="image/png">
+
     <!-- Librería para guardar archivos -->
     <script>
         function convertirSVGaPNG() {
@@ -59,9 +61,9 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body class="bg-gray-100 flex justify-center items-center h-screen">
+<body class="bg-gray-100 flex justify-center items-center h-screen flex-col">
 
-    <div class="text-center p-6 bg-white shadow-md rounded-lg">
+    <div class="text-center p-6 bg-white shadow-md rounded-lg mb-6">
         <h1 class="text-3xl font-bold mb-5">Convertir SVG a PNG</h1>
 
         <!-- Área de texto para pegar el código SVG -->
@@ -73,6 +75,14 @@
             class="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">Convertir y Descargar
             PNG</button>
     </div>
+
+    <!-- Footer -->
+    <footer class="w-full text-center py-4 bg-gray-900 text-white mt-auto">
+        <p class="text-sm">
+            <span class="font-semibold">Hecho y programado por Daniel Huaman</span>, todos los derechos reservados
+        </p>
+    </footer>
+
 
 </body>
 
