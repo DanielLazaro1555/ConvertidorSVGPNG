@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertir SVG a PNG</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas/2.8.0/canvas.min.js"></script> <!-- Librería canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <!-- Librería para guardar archivos -->
+    <script>
+        function convertirSVGaPNG() {
+            // Obtener el código SVG del área de texto
+            const svgText = document.getElementById('svg-input').value;
+
+            // Verificar si el texto está vacío
+            if (!svgText.trim()) {
+                alert("Por favor, pega el código SVG.");
+                return;
+            }
+
+            // Crear un objeto SVG
+            const parser = new DOMParser();
+            const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
+            const svg = svgDoc.documentElement;
+
+            // Crear un objeto de imagen
+            const img = new Image();
+            const svgData = new XMLSerializer().serializeToString(svg);
+
+            // Convertir el SVG en una URL de datos
+            const svgBlob = new Blob([svgData], { type: 'image/svg+xml' });
+            const url = URL.createObjectURL(svgBlob);
+
+            // Cargar el SVG en la imagen
+            img.onload = function () {
+                // Crear un canvas
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+
+                // Establecer las dimensiones del canvas
+                canvas.width = img.width;
+                canvas.height = img.height;
+
+                // Dibujar el SVG en el canvas
+                ctx.drawImage(img, 0, 0);
+
+                // Convertir el canvas a PNG
+                canvas.toBlob(function (blob) {
+                    // Guardar como archivo PNG
+                    saveAs(blob, 'mi-imagen.png');
+                });
+            };
+
+            // Establecer la fuente de la imagen al SVG convertido
+            img.src = url;
+        }
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 flex justify-center items-center h-screen">
+
+    <div class="text-center p-6 bg-white shadow-md rounded-lg">
+        <h1 class="text-3xl font-bold mb-5">Convertir SVG a PNG</h1>
+
+        <!-- Área de texto para pegar el código SVG -->
+        <textarea id="svg-input" rows="10" class="w-full p-3 border border-gray-300 rounded mb-4"
+            placeholder="Pega aquí tu código SVG..."></textarea>
+
+        <!-- Botón para convertir y descargar -->
+        <button onclick="convertirSVGaPNG()"
+            class="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">Convertir y Descargar
+            PNG</button>
+    </div>
+
+</body>
+
+</html>
